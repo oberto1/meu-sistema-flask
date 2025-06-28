@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Demanda - Sistema de Demandas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        .header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #4a6fa5;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background-color: #166088;
+        }
+        .error {
+            color: #f44336;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Solicitar Nova Demanda</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="destino">Destinatário:</label>
+                    <select id="destino" name="destino" required>
+                        <option value="">Selecione um destinatário</option>
+                        {% for usuario in usuarios %}
+                        <option value="{{ usuario }}">{{ usuario }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição da Demanda:</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
+                </div>
+
+                <button type="submit" class="btn">Enviar Demanda</button>
+                <a href="{{ url_for('painel') }}" class="btn" style="background-color: #6c757d;">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
